@@ -4,56 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2, h3 {
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin: 10px 0 5px;
-        }
-
-        input {
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #4cae4c;
-        }
-
-        #currentProfile {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -89,7 +39,7 @@
 
             const profile = { name, email, interests };
 
-            fetch('/profile', {
+            fetch('/update-profile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,15 +48,12 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('currentName').textContent = data.name;
-                document.getElementById('currentEmail').textContent = data.email;
-                document.getElementById('currentInterests').textContent = data.interests;
+                console.log('Profile updated:', data);
             })
             .catch(error => console.error('Error:', error));
         });
 
-        // Fetch and display the current profile on page load
-        fetch('/profile')
+        fetch('/get-profile')
             .then(response => response.json())
             .then(data => {
                 if (data.name) document.getElementById('currentName').textContent = data.name;

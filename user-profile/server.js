@@ -20,17 +20,17 @@ app.get('/profile-picture', function (req, res) {
   res.end(img, 'binary');
 });
 
-// MongoDB connection URL
-const mongoUrlLocal = "mongodb://admin:password@localhost:27017";
-const databaseName = "user-account";
+// // MongoDB connection URL
+// const mongoUrlLocal = "mongodb://admin:password@localhost:27017";
+// const databaseName = "user-account";
 
 app.post('/update-profile', function (req, res) {
   let userObj = req.body;
 
-  MongoClient.connect(mongoUrlLocal, function (err, client) {
+  MongoClient.connect("mongodb://admin:password@localhost:27017", function (err, client) {
     if (err) throw err;
 
-    let db = client.db(databaseName);
+    let db = client.db('my-db');
     userObj['userid'] = 1;
 
     let myquery = { userid: 1 };
@@ -48,7 +48,7 @@ app.post('/update-profile', function (req, res) {
 
 app.get('/get-profile', function (req, res) {
   // Connect to the db
-  MongoClient.connect(mongoUrlLocal, function (err, client) {
+  MongoClient.connect("mongodb://admin:password@localhost:27017", function (err, client) {
     if (err) throw err;
 
     let db = client.db(databaseName);
@@ -63,6 +63,6 @@ app.get('/get-profile', function (req, res) {
   });
 });
 
-app.listen(3001, function () {
-  console.log("app listening on port 3001!");
+app.listen(3000, function () {
+  console.log("app listening on port 3000!");
 });
